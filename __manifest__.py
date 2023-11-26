@@ -25,6 +25,9 @@
         'report/report_peminjaman.xml',
         'report/ir_actions_report.xml',
     ],
+    'demo': [
+        'demo/sistem_perpustakaan_demo_data.xml'
+    ],
     'installable': True,
     'auto_install': False,
     'application': True

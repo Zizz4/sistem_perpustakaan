@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo  noupdate="1">
+
+    <record model="perpustakaan.kelas" id="demo_kelas_1">
+        <field name="name">1</field>
+    </record>
+
+    <record model="res.users" id="demo_anggota_1">
+        <field name="name">Aziz</field>
+        <field name="login">aziz@google.com</field>
+        <field name="is_anggota">1</field>
+        <field name="nis">12007958</field>
+        <field name="umur">18</field>
+        <field name="gender">pria</field>
+        <field name="kelas_id" ref="sistem_perpustakaan.demo_kelas_1"/>
+    </record>
+
+    <record model="res.users" id="demo_pengelola_1">
+        <field name="name">Syahril</field>
+        <field name="login">c</field>
+        <field name="is_pengelola">1</field>
+        <field name="umur">18</field>
+        <field name="gender">pria</field>
+    </record>
+
+    <record model="res.partner" id="demo_penulis_1">
+        <field name="name">Felix Siauw</field>
+        <field name="is_penulis">1</field>
+    </record>
+
+    <record model="res.partner" id="demo_penerbit_1">
+        <field name="name">Gramedia</field>
+        <field name="is_penerbit">1</field>
+    </record>
+
+    <record model="perpustakaan.buku" id="demo_buku_1">
+        <field name="name">Beyond The Inspiration</field>
+        <field name="penulis_id" ref="sistem_perpustakaan.demo_penulis_1"/>
+        <field name="penerbit_id" ref="sistem_perpustakaan.demo_penerbit_1"/>
+        <field name="halaman">150</field>
+        <field name="isbn">1234513451456</field>
+        <field name="tahun_terbit">2010</field>
+        <field name="kategori">non-fiksi</field>
+    </record>
+
+    <record model="perpustakaan.peminjaman" id="demo_peminjaman_1">
+        <field name="buku_id" ref="sistem_perpustakaan.demo_buku_1"/>
+        <field name="pengelola_id" ref="sistem_perpustakaan.demo_pengelola_1"/>
+        <field name="anggota_id" ref="sistem_perpustakaan.demo_anggota_1"/>
+        <field name="deadline" eval="(DateTime.today() + relativedelta(days=3)).strftime('%Y-%m-%d %H:%M')"/>
+    </record>
+</odoo>
