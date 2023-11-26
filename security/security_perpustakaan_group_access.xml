@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.module.category" id="sistem_perpustakaan_category">
+        <field name="name">Sistem Perpustakaan</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="group_sistem_perpustakaan_anggota" model="res.groups">
+        <field name="name">Anggota Perpustakaan</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="sistem_perpustakaan_category"/>
+    </record>
+
+    <record id="group_sistem_perpustakaan_admin" model="res.groups">
+        <field name="name">Admin Perpustakaan</field>
+        <field name="category_id" ref="sistem_perpustakaan_category"/>
+        <field name="implied_ids" eval="[(4, ref('sistem_perpustakaan.group_sistem_perpustakaan_anggota'))]"/>
+    </record>
+
+    <record id="rule_sistem_perpustakaan_peminjaman_anggota" model="ir.rule">
+        <field name="name">Rule See His Own Pinjaman</field>
+        <field name="model_id" ref="model_perpustakaan_peminjaman"/>
+        <field name="domain_force">['|', ('create_uid', '=', user.id), ('anggota_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('sistem_perpustakaan.group_sistem_perpustakaan_anggota'))]"/>
+    </record>
+
+    <record id="rule_sistem_perpustakaan_peminjaman_admin" model="ir.rule">
+        <field name="name">Rule See All Pinjaman</field>
+        <field name="model_id" ref="model_perpustakaan_peminjaman"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('sistem_perpustakaan.group_sistem_perpustakaan_admin'))]"/>
+    </record>
+
+    <record id="rule_sistem_perpustakaan_pengembalian_anggota" model="ir.rule">
+        <field name="name">Rule See His Own Pengembalian</field>
+        <field name="model_id" ref="model_perpustakaan_pengembalian"/>
+        <field name="domain_force">['|', ('create_uid', '=', user.id), ('anggota_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('sistem_perpustakaan.group_sistem_perpustakaan_anggota'))]"/>
+    </record>
+
+    <record id="rule_sistem_perpustakaan_pengembalian_admin" model="ir.rule">
+        <field name="name">Rule See All Pengembalian</field>
+        <field name="model_id" ref="model_perpustakaan_pengembalian"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('sistem_perpustakaan.group_sistem_perpustakaan_admin'))]"/>
+    </record>
+
+</odoo>

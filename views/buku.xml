@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="perpustakaan_buku_form_view" model="ir.ui.view">
+            <field name="name">perpustakaan.buku.form.view</field>
+            <field name="model">perpustakaan.buku</field>
+            <field name="arch" type="xml">
+                <form string="Buku">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="code" placeholder="New" readonly="1" nolabel="1"/>
+                            </h1>
+                            <label for="name"/>
+                            <h2>
+                                <field name="name" required="1"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="penulis_id" required="1"
+                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                                <field name="penerbit_id" required="1"
+                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>
+                                <field name="halaman"/>
+                            </group>
+                            <group>
+                                <field name="isbn" required="1"/>
+                                <field name="tahun_terbit"/>
+                                <field name="kategori"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="perpustakaan_buku_tree_view" model="ir.ui.view">
+            <field name="name">perpustakaan.buku.tree.view</field>
+            <field name="model">perpustakaan.buku</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Buku">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="isbn"/>
+                    <field name="halaman" optional="hide"/>
+                    <field name="penulis_id"/>
+                    <field name="penerbit_id"/>
+                    <field name="kategori"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="perpustakaan_buku_search_view" model="ir.ui.view">
+            <field name="name">perpustakaan.buku.search.view</field>
+            <field name="model">perpustakaan.buku</field>
+            <field name="arch" type="xml">
+                <search string="Buku">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="penerbit_id"/>
+                    <field name="penulis_id"/>
+                    <filter string="Buku Fiksi" name="filter_kategori_fiksi" domain="[('kategori','=','fiksi')]"/>
+                    <filter string="Buku Non-Fiksi" name="filter_kategori_non_fiksi"
+                            domain="[('kategori','=','non-fiksi')]"/>
+                    <filter string="Buku Tebal" name="filter_halaman_buku" domain="[('halaman','>=',150)]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Kategori Buku" name="group_by_kategori" domain="[]"
+                                context="{'group_by':'kategori'}"/>
+                        <filter string="Penerbit" name="group_by_penerbit" domain="[]"
+                                context="{'group_by':'penerbit_id'}"/>
+                        <filter string="Penulis" name="group_by_penulis" domain="[]"
+                                context="{'group_by':'penulis_id'}"/>
+                        <filter string="Tahun Penerbitan" name="group_by_tahun_terbit" domain="[]"
+                                context="{'group_by':'tahun_terbit'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="perpustakaan_buku_act_window" model="ir.actions.act_window">
+            <field name="name">Buku</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">perpustakaan.buku</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Belum Ada Buku!
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="perpustakaan_buku_menu"
+                  name="Daftar Buku"
+                  parent="sistem_perpustakaan_identitas_buku_menu"
+                  sequence="1"
+                  groups="sistem_perpustakaan.group_sistem_perpustakaan_admin"
+                  action="perpustakaan_buku_act_window"/>
+    </data>
+</odoo>

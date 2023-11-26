@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Paper Format -->
+    <record id="paperformat_perpustakaan_peminjaman" model="report.paperformat">
+        <field name="name">Daftar Peminjaman</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="page_height">150</field>
+        <field name="page_width">110</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="disable_shrinking" eval="True"/>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="action_report_perpustakaan_perminjaman" model="ir.actions.report">
+        <field name="name">Daftar Peminjaman</field>
+        <field name="model">perpustakaan.peminjaman</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sistem_perpustakaan.report_perpustakaan_peminjaman</field>
+        <field name="report_file">sistem_perpustakaan.report_perpustakaan_peminjaman</field>
+        <field name="print_report_name">'Report Peminjaman - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="model_perpustakaan_peminjaman"/>
+        <field name="paperformat_id" ref="sistem_perpustakaan.paperformat_perpustakaan_peminjaman" />
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

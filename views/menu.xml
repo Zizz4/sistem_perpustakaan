@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="sistem_perpustakaan_root" name="Sistem Perpustakaan"
+                  web_icon="sistem_perpustakaan,static/description/icon.svg" sequence="1"
+                  groups="sistem_perpustakaan.group_sistem_perpustakaan_anggota"/>
+        <menuitem id="sistem_perpustakaan_identitas_buku_menu" name="Buku" parent="sistem_perpustakaan_root" sequence="3"
+                  groups="sistem_perpustakaan.group_sistem_perpustakaan_admin"/>
+        <menuitem id="sistem_perpustakaan_transaksi_menu" name="Transaksi" parent="sistem_perpustakaan_root" sequence="1"/>
+    </data>
+</odoo>

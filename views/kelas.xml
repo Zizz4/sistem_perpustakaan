@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="perpustakaan_kelas_form_view" model="ir.ui.view">
+            <field name="name">perpustakaan.kelas.form.view</field>
+            <field name="model">perpustakaan.kelas</field>
+            <field name="arch" type="xml">
+                <form string="Kelas">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="daftar_anggota" string="Anggota">
+                                <field name="anggota_ids">
+                                    <tree edit="false" create="false" delete="true">
+                                        <field name="name"/>
+                                        <field name="umur"/>
+                                        <field name="gender"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="perpustakaan_kelas_tree_view" model="ir.ui.view">
+            <field name="name">perpustakaan.kelas.tree.view</field>
+            <field name="model">perpustakaan.kelas</field>
+            <field name="arch" type="xml">
+                <tree string="Kelas">
+                    <field name="name"/>
+                    <field name="anggota_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--        <record id="ModelName_search_view" model="ir.ui.view">-->
+        <!--            <field name="name">ProjectName.ModelName.search</field>-->
+        <!--            <field name="model">ProjectName.ModelName</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <search string="ModelTitle">-->
+        <!--                    <group expand="1" string="Group By">-->
+        <!--                        <filter string="Example Field" name="example_field" domain="[]"-->
+        <!--                                context="{'group_by':'example_field'}"/>-->
+        <!--                    </group>-->
+        <!--                </search>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="perpustakaan_kelas_act_window" model="ir.actions.act_window">
+            <field name="name">Kelas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">perpustakaan.kelas</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Belum Ada Kelas!
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="sistem_perpustakaan_kelas_menu" name="Kelas" parent="sistem_perpustakaan_root" sequence="4"
+                  groups="sistem_perpustakaan.group_sistem_perpustakaan_admin" action="perpustakaan_kelas_act_window"/>
+    </data>
+</odoo>

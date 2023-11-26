@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="perpustakaan_pengembalian_form_view" model="ir.ui.view">
+            <field name="name">perpustakaan.pengembalian.form.view</field>
+            <field name="model">perpustakaan.pengembalian</field>
+            <field name="arch" type="xml">
+                <form string="Peminjaman">
+                    <header>
+                        <button string="Konfirmasi" class="btn-primary" name="action_confirm" type="object"
+                                attrs="{'invisible': [('status', 'not in', 'default')]}"/>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="pinjam_id" required="1"
+                                       attrs="{'readonly': [('status', '!=', 'default')]}"/>
+                                <field name="anggota_id" required="1" widget="many2one_avatar_user"/>
+                                <field name="buku_id" required="1"/>
+                                <field name="pinjam_date" required="1"/>
+                            </group>
+                            <group>
+                                <field name="pengelola_id" widget="many2one_avatar_user"
+                                       attrs="{'readonly': [('status', '!=', 'default')]}"/>
+                                <field name="kembali_date" required="1"
+                                       attrs="{'readonly': [('status', '!=', 'default')]}"/>
+                                <field name="deadline" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="perpustakaan_pengembalian_tree_view" model="ir.ui.view">
+            <field name="name">perpustakaan.pengembalian.tree.view</field>
+            <field name="model">perpustakaan.pengembalian</field>
+            <field name="arch" type="xml">
+                <tree string="Peminjaman">
+                    <field name="name"/>
+                    <field name="pinjam_id"/>
+                    <field name="buku_id"/>
+                    <field name="anggota_id" widget="many2one_avatar_user"/>
+                    <field name="kembali_date"/>
+                    <field name="deadline"/>
+                    <field name="pengelola_id" widget="many2one_avatar_user"/>
+                    <field name="status" widget="badge" decoration-success="status == 'selesai'"
+                           decoration-danger="status == 'selesai_telat'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--        <record id="perpustakaan_peminjaman_search_view" model="ir.ui.view">-->
+        <!--            <field name="name">ProjectName.perpustakaan_peminjaman.search</field>-->
+        <!--            <field name="model">ProjectName.perpustakaan_peminjaman</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <search string="ModelTitle">-->
+        <!--                    <group expand="1" string="Group By">-->
+        <!--                        <filter string="Example Field" name="example_field" domain="[]"-->
+        <!--                                context="{'group_by':'example_field'}"/>-->
+        <!--                    </group>-->
+        <!--                </search>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="perpustakaan_pengembalian_act_window" model="ir.actions.act_window">
+            <field name="name">Pengembalian Buku</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">perpustakaan.pengembalian</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Belum Ada Data Pengembalian!
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Pengembalian" id="perpustakaan_pengembalian_menu" parent="sistem_perpustakaan_transaksi_menu"
+                  sequence="2" action="perpustakaan_pengembalian_act_window"/>
+
+    </data>
+</odoo>

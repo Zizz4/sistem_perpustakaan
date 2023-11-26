@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="report_perpustakaan_peminjaman_document">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <div style="border: 2px solid black; height:250px; width:100%;">
+                        <h1 style="margin-left:10px;">
+                            <span t-out="doc.name"/>
+                        </h1>
+                        <div class="row" style="margin-left:10px;">
+                            <div class="col-9">
+                            </div>
+                            <div class="col-3">
+                                <p t-field="doc.status" widget="badge" decoration-success="status == 'kembali'"
+                                   decoration-info="status == 'dipinjam'"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left:10px;">
+                            <div class="col-3">
+                                Judul Buku
+                            </div>
+                            <div class="col-5">
+                                :
+                                <span t-out="doc.buku_id.name"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left:10px;">
+                            <div class="col-3">
+                                Peminjam
+                            </div>
+                            <div class="col-5">
+                                :
+                                <span t-out="doc.anggota_id.name"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left:10px;">
+                            <div class="col-3">
+                                Tanggal Pinjam
+                            </div>
+                            <div class="col-5">
+                                :
+                                <span t-field="doc.pinjam_date" t-options='{"format": "dd MMMM yyyy"}'/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left:10px;">
+                            <div class="col-3">
+                                Deadline
+                            </div>
+                            <div class="col-5">
+                                :
+                                <span t-field="doc.deadline" t-options='{"format": "dd MMMM yyyy"}'/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-left:10px;">
+                            <div class="col-3">
+                                Pengelola
+                            </div>
+                            <div class="col-5">
+                                :
+                                <span t-field="doc.pengelola_id.name"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-5" style="padding-top:25px;">
+                        <div class="col-4" style="text-align:center;border-top: 1px solid black;">
+                            <h6 style="color:black">
+                                <span t-field="doc.pengelola_id"/>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="report_perpustakaan_peminjaman">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="sistem_perpustakaan.report_perpustakaan_peminjaman_document"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

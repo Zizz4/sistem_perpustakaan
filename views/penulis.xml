@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="perpustakaan_penulis_form_view" model="ir.ui.view">
+            <field name="name">perpustakaan.penulis.form.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_title')]/h1" position="after">
+                    <label for="street" string="Penulis"
+                           attrs="{'required' : [('type', '=', 'contact')], 'invisible': [('is_company','=', True)]}"/>
+                    <field name="is_penulis"
+                           attrs="{'required' : [('type', '=', 'contact')], 'invisible': [('is_company','=', True)]}"/>
+                </xpath>
+                <xpath expr="//page[@name='contact_addresses']" position="after">
+                    <page name="buku_tulisan" string="Buku Tulisan" attrs="{'invisible': [('is_penulis','=',False)]}">
+                        <field name="buku_tulisan_ids" nolabel="1" readonly="1">
+                            <tree create="false" edit="false" delete="false">
+                                <field name="code"/>
+                                <field name="name"/>
+                                <field name="kategori"/>
+                                <field name="penerbit_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="perpustakaan_penulis_tree_view" model="ir.ui.view">
+            <field name="name">perpustakaan.penulis.tree.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="display_name" position="after">
+                    <field name="buku_tulisan_ids" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
+
+        <!--        <record id="school_murid_search_view" model="ir.ui.view">-->
+        <!--            <field name="name">school.murid.search.view</field>-->
+        <!--            <field name="model">res.partner</field>-->
+        <!--            <field name="inherit_id" ref="base.view_res_partner_filter"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="name" position="after">-->
+        <!--                    <field name="gender"/>-->
+        <!--                    <field name="kelas_id"/>-->
+        <!--                    <field name="age"/>-->
+        <!--                </field>-->
+        <!--                <xpath expr="//filter[@name='type_company']" position="after">-->
+        <!--                    <separator/>-->
+        <!--                    <filter name="filter_age_male" string="Male" domain="[('gender', '=', 'male')]"/>-->
+        <!--                    <filter name="filter_age_female" string="Female" domain="[('gender', '=', 'female')]"/>-->
+        <!--                </xpath>-->
+        <!--                <xpath expr="//filter[@name='salesperson']" position="before">-->
+        <!--                    <filter string="Gender" name="gender" domain="[]"-->
+        <!--                            context="{'group_by':'gender'}"/>-->
+        <!--                    <filter string="Kelas" name="kelas_id" domain="[]"-->
+        <!--                            context="{'group_by':'kelas_id'}"/>-->
+        <!--                    <separator/>-->
+        <!--                </xpath>-->
+        <!--                &lt;!&ndash;                <search>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    <field name="gender"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    <field name="kelas_id"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    <field name="age"/>&ndash;&gt;-->
+
+        <!--                &lt;!&ndash;                    <filter name="filter_age_male" string="Male" domain="[('gender', '=', 'male')]"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    <filter name="filter_age_female" string="Female" domain="[('gender', '=', 'female')]"/>&ndash;&gt;-->
+
+        <!--                &lt;!&ndash;                    <group expand="0" string="Group By">&ndash;&gt;-->
+        <!--                &lt;!&ndash;                        <filter string="Gender" name="gender" domain="[]"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                context="{'group_by':'gender'}"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                        <filter string="Kelas" name="kelas_id" domain="[]"&ndash;&gt;-->
+        <!--                &lt;!&ndash;                                context="{'group_by':'kelas_id'}"/>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                    </group>&ndash;&gt;-->
+        <!--                &lt;!&ndash;                </search>&ndash;&gt;-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+        <record id="perpustakaan_penulis_act_window" model="ir.actions.act_window">
+            <field name="name">Penulis</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('is_penulis', '=', True)]</field>
+            <field name="context">{'default_is_penulis': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Belum Ada Penulis!
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Penulis" id="perpustakaan_penulis_menu" parent="sistem_perpustakaan_identitas_buku_menu"
+                  sequence="2"
+                  action="perpustakaan_penulis_act_window"/>
+
+    </data>
+</odoo>

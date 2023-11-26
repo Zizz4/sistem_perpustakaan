@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_perpustakaan_buku" model="ir.sequence">
+            <field name="name">Books Sequence</field>
+            <field name="code">perpustakaan.buku.seq</field>
+            <field name="prefix">B</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>

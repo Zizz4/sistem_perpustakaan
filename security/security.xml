@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4, ref('sistem_perpustakaan.group_sistem_perpustakaan_admin'))]"/>
+        </record>
+    </data>
+</odoo>
