@@ -33,7 +33,7 @@
             <field name="name">perpustakaan.kelas.tree.view</field>
             <field name="model">perpustakaan.kelas</field>
             <field name="arch" type="xml">
-                <tree string="Kelas">
+                <tree string="Kelas" editable="bottom" create="1" delete="1" multi_edit="1">
                     <field name="name"/>
                     <field name="anggota_ids" widget="many2many_tags"/>
                 </tree>
