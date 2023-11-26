@@ -57,3 +57,5 @@ class PerpustakaanPeminjaman(models.Model):
     def action_kembalikan_buku(self):
         self.status = 'kembali'
 
+    def action_batal_pinjam(self):
+        self.status = 'default'
