@@ -5,21 +5,22 @@ from odoo.exceptions import UserError
 
 class PerpustakaanPeminjaman(models.Model):
     _name = 'perpustakaan.peminjaman'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string='Pinjaman', copy=False, readonly=False, index=True,
                        default=lambda self: _('New'))
     anggota_id = fields.Many2one(string='Peminjam', required=True, comodel_name='res.users',
-                                 domain=[('is_anggota', '=', True)])
-    buku_id = fields.Many2one(string='Buku', required=True, comodel_name='perpustakaan.buku')
-    pinjam_date = fields.Date(string='Tanggal Pinjam', required=True, default=date.today())
-    deadline = fields.Date(string='Deadline', required=True)
+                                 domain=[('is_anggota', '=', True)],  tracking=True)
+    buku_id = fields.Many2one(string='Buku', required=True, comodel_name='perpustakaan.buku', tracking=True)
+    pinjam_date = fields.Date(string='Tanggal Pinjam', required=True, default=date.today(), tracking=True)
+    deadline = fields.Date(string='Deadline', required=True, tracking=True)
     pengelola_id = fields.Many2one(string='Pengelola', comodel_name='res.users', domain=[('is_pengelola', '=', True)],
                                    required=True, default=lambda self: self.env.user)
     status = fields.Selection([
         ('default', 'Default'),
         ('dipinjam', 'Dipinjam'),
         ('kembali', 'kembali')
-    ], 'Status', default='default')
+    ], 'Status', default='default', tracking=True)
 
     @api.constrains('pinjam_date','deadline')
     def _constrains_peminjaman(self):
