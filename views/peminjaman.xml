@@ -26,9 +26,11 @@
                         </div>
                         <group>
                             <group>
-                                <field name="buku_id" required="1" attrs="{'readonly': [('status', '!=', 'default')]}"/>
+                                <field name="buku_id" required="1" attrs="{'readonly': [('status', '!=', 'default')]}"
+                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>
                                 <field name="anggota_id" required="1" widget="many2one_avatar_user"
-                                       attrs="{'readonly': [('status', '!=', 'default')]}"/>
+                                       attrs="{'readonly': [('status', '!=', 'default')]}"
+                                       options="{'no_quick_create': True, 'no_create_edit': True}"/>
                                 <field name="pengelola_id" readonly="1" widget="many2one_avatar_user"
                                        options="{'no_quick_create': True, 'no_create_edit': True, 'no_open': True}"/>
                             </group>
