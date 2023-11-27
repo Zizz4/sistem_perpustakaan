@@ -5,7 +5,7 @@
         <template id="report_perpustakaan_peminjaman_document">
             <t t-call="web.basic_layout">
                 <div class="page">
-                    <div style="border: 2px solid black; height:250px; width:100%;">
+                    <div name="card" class="mb-3" style="border: 2px solid black; height:250px; width:100%;">
                         <h1 style="margin-left:10px;">
                             <span t-out="doc.name"/>
                         </h1>
@@ -33,6 +33,7 @@
                             <div class="col-5">
                                 :
                                 <span t-out="doc.anggota_id.name"/>
+                                (Kelas <span t-out="doc.anggota_id.kelas_id.name"/>)
                             </div>
                         </div>
                         <div class="row" style="margin-left:10px;">
@@ -63,7 +64,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-5" style="padding-top:25px;">
+                    <div name="sign" class="row mt-5" style="padding-top:30px;">
+                        <div class="col-8"></div>
                         <div class="col-4" style="text-align:center;border-top: 1px solid black;">
                             <h6 style="color:black">
                                 <span t-field="doc.pengelola_id"/>
